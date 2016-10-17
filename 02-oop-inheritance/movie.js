@@ -1,92 +1,82 @@
- class movieClass {
+class EventEmitter {
+  constructor() {
+    this.listeners = [];
+  }
+
+  on (event, callback) {
+    if(this.listeners[event] !== callback){
+      this.listeners[event] = callback
+    }
+  }
+
+  off(event, callback) {
+      if(this.listeners[event]){
+      delete this.listeners[event];
+    }
+ }
+
+  emit(movie, event) {
+    if(this.listeners[event]){
+    this.listeners[event](movie, event);
+    }
+  }
+}
+
+class Logger{
+  constructor(){
+  }
+
+  Logg(info, functionName){
+      console.log(info.title + ' ' + functionName)
+  }
+}
+
+let mylogger = new Logger();
+
+ class movieClass extends EventEmitter{
      constructor (title, year, duration){
+       super();
        this.title=title;
        this.year=year;
        this.duration=duration;
      }
 
+    // getTitle(){
+    //   return this.title;
+    // }
+
      play(){
+       super.emit(this, 'play')
      }
 
      pause(){
+       super.emit(this, 'pause')
      }
 
      resume(){
+       super.emit(this, 'resume')
      }
 
   }
 
+
    let movie1 = new movieClass ("Terminator I", "1984", "107 mins");
 
-   console.log(movie1.title);
-   console.log(movie1.year);
-   console.log(movie1.duration);
+   console.log(movie1);
+   movie1.on('play', mylogger.Logg);
+   movie1.play();
+   console.log(movie1);
+   movie1.off('play');
    movie1.play();
 
-   let movie2 = new movieClass ("Rocky I", "1976", "119 mins");
+  let movie2 = new movieClass ("Rocky I", "1976", "119 mins");
 
-   console.log(movie2.title);
-   console.log(movie2.year);
-   console.log(movie2.duration);
-   movie2.play();
+  console.log(movie2);
+  movie2.on(movie2, mylogger.Logg);
+  movie2.play();
 
-   let movie3 = new movieClass ("Star Wars V", "1980", "124 mins");
+  let movie3 = new movieClass ("Star Wars V", "1980", "124 mins");
 
-   console.log(movie3.title);
-   console.log(movie3.year);
-   console.log(movie3.duration);
-   movie3.play();
-
-
-class EventEmitter {
- constructor() {
-   this.listeners = new Map();
- }
- on(event, callback) {
-   this.listeners.has(event) || this.listeners.set(event, []);
-   this.listeners.get(event).push(callback);
- }
- removeListener(event, callback) {
-
-   let listeners = this.listeners.get(event),
-    index;
-
-    if (listeners && listeners.length) {
-        index = listeners.reduce((i, listener, index) => {
-            return (isFunction(listener) && listener === callback) ?
-                i = index :
-                i;
-        }, -1);
-
-        if (index > -1) {
-            listeners.splice(index, 1);
-            this.listeners.set(event, listeners);
-            return true;
-        }
-    }
-    return false;
-}
-
- emit(event, ...args) {
-   let listeners = this.listeners.get(event);
-
-   if (listeners && listeners.length) {
-       listeners.forEach((listener) => {
-           listener(...args);
-       });
-       return true;
-   }
-   return false;
- }
-}
-
-let isFunction = function(obj) {
- return typeof obj == 'function' || false;
- }
-
-function mostrar() {console.log("Testing EventEmitter " + movie1.title)}
-let myEmitter = new EventEmitter();
-myEmitter.on(movie1.play(), mostrar);
-myEmitter.emit(movie1.play(), movie1);
-myEmitter.removeListener(movie1.play(), mostrar);
-myEmitter.emit(movie1.play(), movie1);
+  console.log(movie3);
+  movie3.on(movie3, mylogger.Logg);
+  movie3.play();
