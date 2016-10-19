@@ -2,5 +2,4 @@
 *.jpg
 *.mp3
 *.ini
-
-
+/node_modules/*
