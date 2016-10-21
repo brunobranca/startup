@@ -7,11 +7,6 @@ class movieClass extends EventEmitter{
       this.duration=duration;
       this.cast = [];
     }
-
-   // getTitle(){
-   //   return this.title;
-   // }
-
     play(){
       super.emit(this, 'play')
     }

@@ -11,8 +11,8 @@ let Social = {
    },
    like: function(friendName) {
      console.log(this.title + " likes " + friendName);
-   }
   }
+}
 
 let terminator = new movieClass ("Terminator I", "1984", "107 mins");
   console.log(terminator);
