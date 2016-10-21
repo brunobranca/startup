@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="page.js"></script>
+    <title>Exercise topic 4</title>
+  </head>
+  <body>
+    <label>Enter text</label>
+    <br>
+      <textarea id="textToSave" rows="5">Textarea</textarea>
+    </br>
+    <br>
+      <input type="button" onclick="saveLocalStorage()" id="buttonLocal" value="Save Local Storage">
+      <input type="button" onclick="clearLocalStorage()" id="buttonClear" value="Clear Local">
+    </br>
+    <br>
+      <input type="button" onclick="indexedDBSave()" id="buttonIndexed" value="Save Indexed">
+      <input type="button" onclick="clearIndexedDB()" id="buttonClear" value="Clear Indexed">
+    </br>
+    <br>
+      <textarea id="drop_zone">Drop file here</textarea>
+    </br>
+
+    <h2>WebSocket Test</h2>
+    <div id="output"></div>
+
+  </body>
+</html>
