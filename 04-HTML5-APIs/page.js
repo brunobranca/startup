@@ -110,7 +110,7 @@ var wsUri = "ws://echo.websocket.org/";
 
   function onMessage(evt)
   {
-    writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
+    writeToScreen(<span style="color: blue;">RESPONSE: ' + evt.data+'</span>);
     websocket.close();
   }
 
