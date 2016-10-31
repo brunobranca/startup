@@ -1,38 +1,44 @@
 import React from 'react';
 
 class MovieList extends React.Component {
-constructor (props) {
+  constructor (props) {
     super(props);
-    this.renderM = this.renderM.bind(this);
+
+    this.renderItem = this.renderItem.bind(this);
   }
 
   render() {
     return (
       <ul>
-        {this.renderMovie()}
+        {this.renderItems()}
       </ul>
     );
   }
 
-  renderMovie(){
-    let favourites = this.props.movie.filter(function(item){
-      return item.favourite
-    })
-    return favourites.map(this.renderM);
+  renderItems () {
+    let favourites;
+    if(this.props.movies !== null){
+      favourites = this.props.movies.filter( function(item) {
+        return item.favourite
+      })
+      return favourites.map(this.renderItem);
+    }
+    return (
+      <li />
+    )
   }
 
-  renderM(item, index){
-  return(
-    <li key={index}>
-      {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
-    </li>
-  );
+  renderItem (item, index) {
+    return (
+      <li key={index}>
+        {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
+      </li>
+    );
   }
 };
 
 MovieList.propTypes = {
-   movies: React.PropTypes.array.isRequired
-  };
-
+  movies: React.PropTypes.array.isRequired
+};
 
 export default MovieList;
