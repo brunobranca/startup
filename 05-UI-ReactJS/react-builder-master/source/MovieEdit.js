@@ -4,13 +4,14 @@ import MovieInput from './MovieInput';
 class MovieEdit extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {isSelect : false};
-    //this.handleChangeTitle = this.handleChange.bind(this);
-    this.renderMovie = this.renderMovie.bind(this);
-  }
-
-  handleClick () {
-
+    this.state = {title: "",year: "",duration: "", favourite: false};
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.renderItems = this.renderItems.bind(this);
+    this.initializeState = this.initializeState.bind(this);
+    this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
+    this.handleUpdateYear = this.handleUpdateYear.bind(this);
+    this.updateUpdateDuration = this.updateUpdateDuration.bind(this);
+    this.handleUpdateFavourite = this.handleUpdateFavourite.bind(this);
   }
 
   render() {
@@ -21,54 +22,95 @@ class MovieEdit extends React.Component {
     );
   }
 
-  // renderScrollable (item, index, isSelected) {
-  //   console.log(this.props.movies)
-  //   let isSelected = this.state.isSelected;
-  //   if (isSelected) {
-  //       alert("a")
-  //   }
+  initializeState (index) {
+    console.log(index)
+    this.props.onSubmit(index);
+  }
+
+  handleUpdateTitle (event) {
+    this.setState({title: event.target.value})
+    console.log(this.state.title);
+  }
+
+  handleUpdateYear(event) {
+    this.setState({year: event.target.value});
+    console.log(this.state.year);
+  }
+
+  updateUpdateDuration(event) {
+    this.setState({duration: event.target.value});
+    console.log(this.state.duration);
+  }
+
+  handleUpdateFavourite (event) {
+    this.setState({favourite: event.target.checked})
+    console.log(this.state.favourite);
+  }
+
+  handleUpdate(index) {
+    console.log(index);
+    this.props.onSubmit(this.state, index);
+  }
+
+  // render() {
   //   return (
-  //     <div key={index}>
-  //       <li onClick={isSelected=true}>{item.title}</li>
-  //     </div>
-  //   )
+  //     <ul>
+  //       {this.renderItems()}
+  //     </ul>
+  //
+  //   );
   // }
 
-  handleUpdateTitle (props) {
-    console.log(this.props.movies);
+  renderItems () {
+    let favourites;
+    if(this.props.movies !== null){
+      favourites = this.props.movies.filter( function(item) {
+        return item.title
+      })
+      return favourites.map(this.renderItem);
+    }
+    return (
+      <li />
+    )
   }
+
+  renderItem (item, index) {
+    return (
+      <li key={index}>
+        {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
+      </li>
+    );
+  }
+
 
   renderMovies () {
     let isSelected = false;
-    return (
-      // this.props.movies.map(this.renderScrollable.bind(this))
-      // if(isSelected)
-    this.props.movies.map(this.renderMovie)
-    )
-  }
-  handleSubmit(event) {
-    if (this.props.onSubmit) {
-      this.props.onSubmit(this.state);
+
+    if (this.props.movies !== null ){
+      return (        
+        this.props.movies.map(this.renderMovie)
+      )
+    } else {
+      return null;
     }
   }
 
   renderMovie (item, index) {
+    let boundItemClick = this.initializeState.bind(this, index);
+    let boundItemUpdate = this.handleUpdate.bind(this, index)
     return (
       <div key={index}>
         <br />
-        <input type="text" name="title" value={this.state} onChange={this.handleUpdateTitle.bind(this)}></input>
-        <input type="text" name="year" value={this.state} />
-        <input type="text" name="duration" value={this.state} />
-        <label /> Favourite <input type="checkbox" checked={this.state} />
-        <button onClick={this.handleSubmit.bind(this)}>Edit</button>
+        <label>Title: </label>
+        <li>{item.title}</li>
+        <button onClick={boundItemClick}>Edit</button>
       </div>
     )
   }
-
 };
 
-  MovieEdit.propTypes = {
-  movies: React.PropTypes.array.isRequired
-};
+function enableEdit () {
+  isEnabled = true;
+}
 
 export default MovieEdit;

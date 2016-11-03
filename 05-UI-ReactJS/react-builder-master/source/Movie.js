@@ -12,20 +12,18 @@ class Movie extends React.Component{
             <MovieList movies={this.getMovies()} />
             <h3 id="favouriteListTitle" />
             <ul id="list" />
-            <MovieEdit movies={this.getMovies()} onSubmit={this.handleUpdateMovie} />
         </div>
     );
   }
-
+  // <MovieEdit movies={this.getMovies()} onSubmit={this.handleUpdateMovie} />
   getMovies () {
-    let movies = localStorage.getItem("movieStorage") || [];
-    if(movies != ''){
-      return JSON.parse(movies)
-    }
-    else {
-      return JSON.parse('null')
-    }
-  }
+    let movies = [];
+
+     if (localStorage.getItem('movieStorage')) {
+       movies = JSON.parse(localStorage.getItem('movieStorage'));
+     }
+     return movies;
+   }
 
   handleMovieInputSubmit (event) {
     let movies = JSON.parse(localStorage.getItem("movieStorage")) || [];
