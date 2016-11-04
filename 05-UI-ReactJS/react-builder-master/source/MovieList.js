@@ -1,15 +1,19 @@
-import React from 'react';
+import React from 'react'
+import Rout from './routes'
+import Movie from './Movie'
 
 class MovieList extends React.Component {
   constructor (props) {
     super(props);
-
+debugger;
     this.renderItem = this.renderItem.bind(this);
   }
 
   render() {
     return (
+
       <ul>
+        <Movie />
         {this.renderItems()}
       </ul>
 
@@ -17,23 +21,17 @@ class MovieList extends React.Component {
   }
 
   renderItems () {
-    let favourites;
-    if(this.props.movies !== null){
-      favourites = this.props.movies.filter( function(item) {
-        return item.favourite
-      })
-      return favourites.map(this.renderItem);
-    }
-    return (
-      <li />
-    )
+    let movies = JSON.parse(localStorage.getItem('movieStorage'));
+    return movies.map(this.renderItem);
   }
 
   renderItem (item, index) {
     return (
-      <li key={index}>
-        {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
-      </li>
+      <div>
+        <li key={index}>
+          {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
+        </li>
+      </div>
     );
   }
 };

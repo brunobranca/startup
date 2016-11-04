@@ -1,4 +1,8 @@
 import React from 'react';
+import Rout from './routes'
+import moviesStore from './moviesStore'
+import Movie from './Movie'
+import {MOVIE_INPUT} from './actions'
 
 class MovieInput extends React.Component {
   constructor(props) {
@@ -28,22 +32,21 @@ class MovieInput extends React.Component {
   }
 
   handleSubmit(event) {
-    if (this.props.onSubmit) {
-      this.props.onSubmit(this.state);
-    }
+  moviesStore.dispatch(MovieInput(event))
   }
 
   render() {
     return (
-      <div>Movie<br/><br/>
-            <label>Title: </label>
-            <input type="text" placeholder="Title" name="title" value={this.state.title} onChange={this.handleChangeTitle} /><br /><br />
-            <label>Year: </label>
-            <input type="number" min="1900" max="2016" placeholder="Year" name="year" value={this.state.year} onChange={this.handleChangeYear} /><br /><br />
-            <label>Duration: </label>
-            <input type="time" placeholder="Duration" name="duration" value={this.state.duration} onChange={this.handleChangeDuration}/><br /><br />
-            <label />Mark as favourite <input type="checkbox" checked={this.state.favourite} onChange={this.handleFavourite} /> <br /> <br />
-            <button onClick={this.handleSubmit.bind(this)}>Submit</button>
+      <div>
+            <Movie/>Movie<br/><br/>
+              <label>Title: </label>
+                <input type="text" placeholder="Title" name="title" value={this.state.title} onChange={this.handleChangeTitle} /><br /><br />
+              <label>Year: </label>
+                <input type="number" min="1900" max="2016" placeholder="Year" name="year" value={this.state.year} onChange={this.handleChangeYear} /><br /><br />
+              <label>Duration: </label>
+                <input type="time" placeholder="Duration" name="duration" value={this.state.duration} onChange={this.handleChangeDuration}/><br /><br />
+              <label />Mark as favourite <input type="checkbox" checked={this.state.favourite} onChange={this.handleFavourite} /> <br /> <br />
+              <button onClick={this.handleSubmit.bind(this)}>Submit</button>
       </div>
     );
   }

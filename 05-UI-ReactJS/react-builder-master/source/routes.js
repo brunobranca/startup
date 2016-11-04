@@ -3,19 +3,23 @@ import Movie from './Movie'
 import MovieList from './MovieList'
 import MovieInput from './MovieInput'
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router'
+import { Provider } from 'react-redux'
+import moviesStore from './moviesStore'
 
 class Rout extends Component {
  render() {
      return (
-       <Router >
-         <Route path='/' component={Movie} />
-         <Route path='/MovieInput' component={MovieInput} />
-         <Route path='/MovieList' component={MovieList} />
-       </Router>
+      <div>
+        <Provider store={moviesStore}>
+          <Router history = {hashHistory}>
+            <Route path='/' component={Movie} />
+              <Route path='/MovieInput' component={MovieInput} />
+              <Route path='/MovieList' component={MovieList} />
+          </Router>
+        </Provider>
+      </div>
     )
   }
 }
-const NotFound = () => (
- <h1>404.. This page is not found!</h1>)
 
 export default Rout;

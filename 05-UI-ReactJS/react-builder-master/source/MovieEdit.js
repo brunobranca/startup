@@ -1,5 +1,5 @@
-import React from 'react';
-import MovieInput from './MovieInput';
+import React from 'react'
+import MovieInput from './MovieInput'
 
 class MovieEdit extends React.Component {
   constructor (props) {
@@ -52,15 +52,6 @@ class MovieEdit extends React.Component {
     this.props.onSubmit(this.state, index);
   }
 
-  // render() {
-  //   return (
-  //     <ul>
-  //       {this.renderItems()}
-  //     </ul>
-  //
-  //   );
-  // }
-
   renderItems () {
     let favourites;
     if(this.props.movies !== null){
@@ -87,7 +78,7 @@ class MovieEdit extends React.Component {
     let isSelected = false;
 
     if (this.props.movies !== null ){
-      return (        
+      return (
         this.props.movies.map(this.renderMovie)
       )
     } else {

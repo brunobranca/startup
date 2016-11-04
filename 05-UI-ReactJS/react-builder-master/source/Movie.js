@@ -1,15 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import MovieInput from './MovieInput';
-import MovieList from './MovieList';
-import MovieEdit from './MovieEdit';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import MovieInput from './MovieInput'
+import MovieList from './MovieList'
+import MovieEdit from './MovieEdit'
+import { Link } from 'react-router'
+import moviesStore from './moviesStore'
+import Rout from './routes'
 
 class Movie extends React.Component{
   render () {
     return (
         <div className="movie">
-            <MovieInput onSubmit={this.handleMovieInputSubmit} /> <br />
-            <MovieList movies={this.getMovies()} />
+            <Link to ="/MovieInput"><button className="buttonSelect">Movie Input</button></Link>
+            <Link to ="/MovieList"><button className="buttonSelect">Movie List</button></Link>
             <h3 id="favouriteListTitle" />
             <ul id="list" />
         </div>
