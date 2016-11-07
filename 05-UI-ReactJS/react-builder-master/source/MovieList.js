@@ -1,43 +1,50 @@
 import React from 'react'
 import Rout from './routes'
 import Movie from './Movie'
+import moviesStore from './moviesStore'
+import { connect } from 'react-redux';
+import { handleM } from './reducers.js';
+import { Link } from 'react-router';
+import { movieList } from './actions';
 
 class MovieList extends React.Component {
-  constructor (props) {
-    super(props);
-debugger;
+  constructor () {
+    super();
+
     this.renderItem = this.renderItem.bind(this);
   }
 
   render() {
     return (
-
-      <ul>
+      <div>
         <Movie />
-        {this.renderItems()}
-      </ul>
-
+        <ul>
+          {this.renderItems()}
+        </ul>
+      </div>
     );
   }
 
   renderItems () {
-    let movies = JSON.parse(localStorage.getItem('movieStorage'));
-    return movies.map(this.renderItem);
-  }
+     let movies;
+     movies = moviesStore.getState();
+     if(movies !== null){
+       return movies.map(this.renderItem);
+     }
+     return (
+       <li />
+     )
+   }
 
-  renderItem (item, index) {
-    return (
-      <div>
-        <li key={index}>
-          {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
-        </li>
-      </div>
-    );
-  }
-};
-
-MovieList.propTypes = {
-  movies: React.PropTypes.array.isRequired
-};
+   renderItem (item, index) {
+     let boundItemClick = this.initializeState;
+     return (
+       <li key={index}>
+         {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
+         <Link to={`MovieInput/${index}`}><button className="buttonSelect">Edit</button></Link>
+       </li>
+     );
+   }
+ };
 
 export default MovieList;

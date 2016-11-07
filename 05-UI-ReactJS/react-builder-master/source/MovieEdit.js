@@ -16,7 +16,9 @@ class MovieEdit extends React.Component {
 
   render() {
     return (
+
       <div>
+        <Movie />
         {this.renderMovies()}
       </div>
     );
@@ -36,7 +38,7 @@ class MovieEdit extends React.Component {
     this.setState({year: event.target.value});
     console.log(this.state.year);
   }
-
+ƒ
   updateUpdateDuration(event) {
     this.setState({duration: event.target.value});
     console.log(this.state.duration);

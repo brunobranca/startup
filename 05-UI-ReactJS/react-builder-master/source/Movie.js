@@ -1,13 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import MovieInput from './MovieInput'
-import MovieList from './MovieList'
-import MovieEdit from './MovieEdit'
-import { Link } from 'react-router'
-import moviesStore from './moviesStore'
-import Rout from './routes'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import MovieInput from './MovieInput';
+import MovieList from './MovieList';
+import MovieEdit from './MovieEdit';
+import { Link } from 'react-router';
 
 class Movie extends React.Component{
+  constructor () {
+    super();
+    this.state = {movieToUpdate: {}}
+  }
+
   render () {
     return (
         <div className="movie">
@@ -18,7 +21,36 @@ class Movie extends React.Component{
         </div>
     );
   }
-  // <MovieEdit movies={this.getMovies()} onSubmit={this.handleUpdateMovie} />
+
+  getMov(){
+   if (this.props.params.index){
+     let index = this.props.params.index
+     let movies = JSON.parse(localStorage.getItem('movies'))
+     return movies[index];
+   }
+  }
+
+  getTitle(){
+   let movie= this.getMov();
+   return movie.title;
+  }
+
+  getYear(){
+   let movie= this.getMov();
+   return movie.year;
+  }
+
+  getDuration(){
+   let movie= this.getMov();
+   return movie.duration;
+  }
+
+  getFavourite(){
+   let movie= this.getMov();
+   return movie.favourite;
+  }
+
+
   getMovies () {
     let movies = [];
 
@@ -36,7 +68,7 @@ class Movie extends React.Component{
 
   handleUpdateMovie (index) {
     let movies = JSON.parse(localStorage.getItem("movieStorage"));
-    return(movies[index]);
+    this.setState({movieToUpdate: movies[index]});
   }
 };
 

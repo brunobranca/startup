@@ -1,19 +1,20 @@
-import React, { Component } from 'react'
-import Movie from './Movie'
-import MovieList from './MovieList'
-import MovieInput from './MovieInput'
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router'
-import { Provider } from 'react-redux'
-import moviesStore from './moviesStore'
+import React, { Component } from 'react';
+import Movie from './Movie';
+import MovieList from './MovieList';
+import MovieInput from './MovieInput';
+import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import moviesStore from './moviesStore';
 
 class Rout extends Component {
  render() {
      return (
       <div>
         <Provider store={moviesStore}>
-          <Router history = {hashHistory}>
+          <Router history = {browserHistory}>
             <Route path='/' component={Movie} />
-              <Route path='/MovieInput' component={MovieInput} />
+            <Route path='/Movie/(:index)' component={Movie}/>
+              <Route path='/MovieInput/(:index)' component={MovieInput} />
               <Route path='/MovieList' component={MovieList} />
           </Router>
         </Provider>

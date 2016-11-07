@@ -2,7 +2,7 @@
   "name": "tutorial",
   "version": "1.0.0",
   "description": "",
-  "main": "react-router.js",
+  "main": "index.js",
   "scripts": {
     "build": "gulp",
     "start": "webpack-dev-server --inline --content-base ."
