@@ -1,4 +1,4 @@
-import {MOVIE_INPUT, MOVIE_LIST, MOVIE_EDIT, INITIALIZE_STATE} from './actions'
+import {MOVIE_INPUT, MOVIE_EDIT, MOVIE_DELETE, INITIALIZE_STATE} from './actions'
 
 function handleM(state = [ { movies: {} } ], action) {
   console.log(action, MOVIE_INPUT);
@@ -8,18 +8,23 @@ function handleM(state = [ { movies: {} } ], action) {
 
     case INITIALIZE_STATE:
       state = movies;
-      console.log(state);
       return(state);
 
     case MOVIE_INPUT:
-    console.log(action.movie)
     state.push(action.movie);
     localStorage.setItem("movieStorage", JSON.stringify(state));
     return (state)
 
     case MOVIE_EDIT:
+    console.log(state[action.movie.index].title)
+    state[action.movie.index] = action.movie
+    console.log(state[action.movie.index].title)
+    localStorage.setItem("movieStorage", JSON.stringify(state));
+    return(state)
 
-    case MOVIE_LIST:
+    case MOVIE_DELETE:
+    state.splice(action.index, 1);
+    localStorage.setItem("movieStorage", JSON.stringify(state));
 
     default:
       return state;

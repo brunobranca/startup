@@ -13,8 +13,8 @@ class Rout extends Component {
         <Provider store={moviesStore}>
           <Router history = {browserHistory}>
             <Route path='/' component={Movie} />
-            <Route path='/Movie/(:index)' component={Movie}/>
-              <Route path='/MovieInput/(:index)' component={MovieInput} />
+              <Route path='/MovieInput' component={MovieInput} />
+              <Route path='/MovieInput/:item' component={MovieInput} />
               <Route path='/MovieList' component={MovieList} />
           </Router>
         </Provider>

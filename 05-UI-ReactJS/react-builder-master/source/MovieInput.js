@@ -1,18 +1,23 @@
 import React from 'react';
 import moviesStore from './moviesStore';
 import Movie from './Movie';
-import {movieInput, initializeState} from './actions';
+import {movieInput, movieEdit, initializeState} from './actions';
 import { connect } from 'react-redux';
 import handleM from './reducers.js';
+import MovieList from './MovieList';
 
 class MovieInput extends React.Component {
   constructor(props) {
     super(props);
+
+    let movies = JSON.parse(this.props.params.item)
+
     this.state = {
-      title: this.props.title,
-      year: this.props.year,
-      duration: this.props.duration,
-      favourite: this.props.favourite
+      title: movies.title,
+      year: movies.year,
+      duration: movies.duration,
+      favourite: movies.favourite,
+      index: movies.id
     }
 
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
@@ -39,7 +44,12 @@ class MovieInput extends React.Component {
   }
 
   handleSubmit(event) {
-  moviesStore.dispatch(movieInput(this.state))
+    if(this.props.params.item === '0'){
+      moviesStore.dispatch(movieInput(this.state))
+      }
+      else{
+        moviesStore.dispatch(movieEdit(this.state));
+      }
   }
 
   render() {
@@ -47,11 +57,11 @@ class MovieInput extends React.Component {
       <div>
             <Movie/>Movie<br/><br/>
               <label>Title: </label>
-                <input type="text" placeholder= {this.props.title||"Title"} name="title" value={this.props.title} onChange={this.handleChangeTitle} /><br /><br />
+                <input type="text" placeholder= {this.props.title||"Title"} name="title" value={this.state.title} onChange={this.handleChangeTitle} /><br /><br />
               <label>Year: </label>
-                <input type="number" min="1900" max="2016" placeholder= {this.props.year||"Year"} name="year" value={this.props.year} onChange={this.handleChangeYear} /><br /><br />
+                <input type="number" min="1900" max="2016" placeholder= {this.props.year||"Year"} name="year" value={this.state.year} onChange={this.handleChangeYear} /><br /><br />
               <label>Duration: </label>
-                <input type="time" placeholder={this.props.duration||"Duration"} name="duration" value={this.props.duration} onChange={this.handleChangeDuration}/><br /><br />
+                <input type="time" placeholder={this.props.duration||"Duration"} name="duration" value={this.state.duration} onChange={this.handleChangeDuration}/><br /><br />
               <label />Mark as favourite <input type="checkbox" checked={this.state.favourite} onChange={this.handleFavourite} /> <br /> <br />
               <button onClick={this.handleSubmit.bind(this)}>Submit</button>
       </div>

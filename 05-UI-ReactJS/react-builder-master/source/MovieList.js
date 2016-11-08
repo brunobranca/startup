@@ -5,13 +5,17 @@ import moviesStore from './moviesStore'
 import { connect } from 'react-redux';
 import { handleM } from './reducers.js';
 import { Link } from 'react-router';
-import { movieList } from './actions';
+import { movieDelete } from './actions';
 
 class MovieList extends React.Component {
   constructor () {
     super();
 
     this.renderItem = this.renderItem.bind(this);
+  }
+
+  movieDelete(index) {
+    moviesStore.dispatch(movieDelete(index))
   }
 
   render() {
@@ -41,7 +45,8 @@ class MovieList extends React.Component {
      return (
        <li key={index}>
          {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
-         <Link to={`MovieInput/${index}`}><button className="buttonSelect">Edit</button></Link>
+         <Link to={`MovieInput/${JSON.stringify(item, item.id=index )}`}><button className="buttonSelect">Edit</button></Link>
+         <button onClick={this.movieDelete.bind(this, index)}>Delete</button>
        </li>
      );
    }
