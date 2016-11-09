@@ -15,13 +15,12 @@ class MovieList extends React.Component {
   }
 
   movieDelete(index) {
-    moviesStore.dispatch(movieDelete(index))
+  this.props.onDelete(index)
   }
 
   render() {
     return (
       <div>
-        <Movie />
         <ul>
           {this.renderItems()}
         </ul>

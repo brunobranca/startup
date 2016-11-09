@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import MovieInput from './MovieInput';
 import MovieList from './MovieList';
 import { Link } from 'react-router';
+import MoviesForm from './MoviesForm';
 
 class Movie extends React.Component{
   constructor () {
@@ -14,7 +15,7 @@ class Movie extends React.Component{
     return (
         <div className="movie">
             <Link to ="/MovieInput/0"><button className="buttonSelect">Movie Input</button></Link>
-            <Link to ="/MovieList"><button className="buttonSelect">Movie List</button></Link>
+            <Link to ="/MoviesForm"><button className="buttonSelect">Movie List</button></Link>
             <h3 id="favouriteListTitle" />
             <ul id="list" />
         </div>

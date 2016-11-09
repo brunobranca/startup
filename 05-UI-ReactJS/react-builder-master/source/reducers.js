@@ -23,8 +23,12 @@ function handleM(state = [ { movies: {} } ], action) {
     return(state)
 
     case MOVIE_DELETE:
-    state.splice(action.index, 1);
-    localStorage.setItem("movieStorage", JSON.stringify(state));
+     let indexA = action.index;
+     state = state.filter( function (state) {
+       return state.id !== indexA
+     }, indexA);
+     localStorage.setItem("movieStorage", JSON.stringify(state));
+     return state;
 
     default:
       return state;
